@@ -1,5 +1,6 @@
 import userInfos from "../models/user";
 import bcrypt from "bcrypt";
+import TokenAuth from "../helpers/tokenAuth";
 
 class UserController{
 
@@ -46,7 +47,7 @@ static async deletOneUser(req,res){
     return res.status(200).json({message:"user deleted"});
 }
 
-//login function
+// //login function
 static async userLogin(req,res){
 
     const user= await userInfos.findOne({email: req.body.email});
@@ -55,7 +56,9 @@ static async userLogin(req,res){
     return res.status(404).json({error: "user not found"});
     }
     if(bcrypt.compareSync(req.body.password, user.password)){
-        return res.status(200).json({message:"SUccessfuly logged in", data:user});
+        user.password=null;
+        const token=TokenAuth.tokenGenerator({user:user});
+        return res.status(200).json({message:"SUccessfuly logged in", token:token});
     }
         return res.status(400).json({error:"Password is wrong"});
     }

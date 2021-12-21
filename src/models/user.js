@@ -21,6 +21,11 @@ gender:{
     type:String,
     enum:["male", "female","other"],
 },
+role:{
+    type:String,
+    default:"user",
+    enum:["admin","user"],
+}
 
 
 }

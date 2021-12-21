@@ -28,8 +28,8 @@ class Validator{
         static newTourRules(){
             return[
 
-            check("tourName", "Tour name should be valid").trim().isAlpha(),
-            check("tourLocation","Tour location should be valid among Musanze, karongi,Nyungwe,Nyanza,Gisenyi").trim().isIn(["Musanze", "karongi","Nyungwe","Nyanza","Gisenyi"]),
+            check("tourName", "Tour name should be valid").trim().isString(),
+            check("tourLocation","Tour location should be valid").trim().isString(),
             check("price", "price should be valid").trim().isNumeric(),
             check("seats", "seats should be valid").trim().isNumeric(),
             check("dateScheduled", "Datescheduled should be valid").trim().isDate(),

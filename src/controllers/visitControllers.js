@@ -5,6 +5,7 @@ class VisitController{
     //create tour in db
 
     static async createTour(req,res){
+        req.body.user=req.user._id;
         const tours= await  visitInfos.create(req.body);
 
         if(!tours){
@@ -33,7 +34,7 @@ static async getOneTour(req,res){
     }
     return res.status(200).json({message:"tour found", data:tours});
 }
-// // delete one user in db
+// // delete one tour in db
 static async deletOneTour(req,res){
     const tours= await visitInfos.findByIdAndDelete(req.params.id);
 
@@ -42,6 +43,6 @@ static async deletOneTour(req,res){
     }
     return res.status(200).json({message:"tour deleted Well"});
 }
-//to update one user in db
+//to update one tour in db
 }
 export default VisitController; 

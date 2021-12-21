@@ -4,38 +4,37 @@ import mongoose from 'mongoose';
 const visitSchema= new mongoose.Schema(
     {
 
-tourName:{
-    type: String,
-    required: true,
-},
-tourLocation:{
-    type:String,
-    required:true,
-    enum:["Musanze","Gisenyi","Karongi","Nyanza","Nyungwe"],
+tourName:String,
+    // required: true,
+
+tourLocation:String,
+    // required:true,
+    // enum:["Musanze","Gisenyi","Karongi","Nyanza","Nyungwe"],
    
 
-},
-price:{
-    type:Number,
-   required:true,
-},
-seats:{
-    type:Number,
-    unique:true,
-
-},
+price:Number,
+seats:Number,
 dateScheduled:String,
-
 duedate:String,
 // images:{
 //     type: String,
 // }
+user:{
+    type:mongoose.Schema.ObjectId,
+ref:"User",
+}
 
-
+}
     
-    }
 
-)
+);
+visitSchema.pre(/^find/,function (next){
+    this.populate({
+        path:"user",
+        select:"lastName email address"
+    }),
+    next();
+} )
 
 const visit =mongoose.model('Tour',visitSchema);
 
