@@ -51,13 +51,15 @@ static async deletOneUser(req,res){
 static async userLogin(req,res){
 
     const user= await userInfos.findOne({email: req.body.email});
+   
 
     if(!user){ 
     return res.status(404).json({error: "user not found"});
     }
-    if(bcrypt.compareSync(req.body.password, user.password)){
+     if(bcrypt.compareSync(req.body.password, user.password)){
         user.password=null;
-        const token=TokenAuth.tokenGenerator({user:user});
+ console.log (user)
+      const token=TokenAuth.tokenGenerator({user:user});
         return res.status(200).json({message:"SUccessfuly logged in", token:token});
     }
         return res.status(400).json({error:"Password is wrong"});
